@@ -1,0 +1,5 @@
+import Link from "next/link";
+import { ArrowUpRight, ArrowRight } from "lucide-react";
+import type { Project } from "@/types/portfolio";
+import { ProjectVisual } from "./project-visual";
+export function ProjectCard({ project, index }: { project: Project; index: number }) { return <article className={`project-card ${index === 0 ? "project-wide" : ""}`}><Link className="project-art-link" href={`/projects/${project.slug}/`} aria-label={`Explore ${project.title}`}><ProjectVisual project={project}/><span className="project-open"><ArrowUpRight size={22}/></span></Link><div className="project-card-copy"><div className="project-meta"><span>{String(index + 1).padStart(2,"0")} / {project.category}</span>{project.status === "archived" && <span>Archived</span>}</div><div className="project-card-heading"><h3><Link href={`/projects/${project.slug}/`}>{project.title}</Link></h3><Link href={`/projects/${project.slug}/`} aria-label={`Read ${project.title} case study`}><ArrowRight size={22}/></Link></div><p>{project.summary}</p>{project.technologies.length > 0 && <p className="tech-list">{project.technologies.join(" · ")}</p>}</div></article>; }

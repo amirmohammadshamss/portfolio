@@ -1,0 +1,87 @@
+{
+  "hello7": [
+    {
+      "src": "/images/projects/hello7-1.png",
+      "width": 559,
+      "height": 1167
+    },
+    {
+      "src": "/images/projects/hello7-2.png",
+      "width": 558,
+      "height": 1165
+    },
+    {
+      "src": "/images/projects/hello7-3.png",
+      "width": 558,
+      "height": 1165
+    }
+  ],
+  "dido": [
+    {
+      "src": "/images/projects/dido-1.png",
+      "width": 572,
+      "height": 1182
+    },
+    {
+      "src": "/images/projects/dido-2.png",
+      "width": 589,
+      "height": 1196
+    },
+    {
+      "src": "/images/projects/dido-3.png",
+      "width": 575,
+      "height": 1179
+    }
+  ],
+  "zaryad": [
+    {
+      "src": "/images/projects/zaryad-1.png",
+      "width": 567,
+      "height": 1165
+    },
+    {
+      "src": "/images/projects/zaryad-2.png",
+      "width": 561,
+      "height": 1165
+    },
+    {
+      "src": "/images/projects/zaryad-3.png",
+      "width": 564,
+      "height": 1165
+    }
+  ],
+  "turlister": [
+    {
+      "src": "/images/projects/turlister-1.png",
+      "width": 567,
+      "height": 1165
+    },
+    {
+      "src": "/images/projects/turlister-2.png",
+      "width": 561,
+      "height": 1165
+    },
+    {
+      "src": "/images/projects/turlister-3.png",
+      "width": 564,
+      "height": 1165
+    }
+  ],
+  "care4us": [
+    {
+      "src": "/images/projects/care4us-1.png",
+      "width": 567,
+      "height": 1165
+    },
+    {
+      "src": "/images/projects/care4us-2.png",
+      "width": 561,
+      "height": 1165
+    },
+    {
+      "src": "/images/projects/care4us-3.png",
+      "width": 564,
+      "height": 1165
+    }
+  ]
+}
