@@ -12,7 +12,7 @@ npx playwright install chromium
 npm run dev
 ```
 
-Open http://localhost:3000. The PDF download is produced during the production workflow below; preview the presentation at `/portfolio/print/`.
+Open http://localhost:3000. `npm run dev` prepares the PDF download before starting: it reuses the latest export when present, or runs the full build and PDF generation once when no PDF exists. Preview the presentation at `/portfolio/print/`. After changing content, run `npm run build:portfolio` to refresh the downloadable PDF.
 
 ## Build and export
 
@@ -23,18 +23,18 @@ npm run build:portfolio
 npm run verify
 ```
 
-`build:portfolio` runs the Next.js static build first, then serves `out/` temporarily on loopback, launches Chromium, waits for fonts and images, checks page overflow, renders the presentation, and writes metadata. It closes the browser and server afterward. `out/` contains the complete deployable website **and `portfolio.pdf`**. The PDF has landscape 1440 × 810 CSS pixel pages, searchable text, embedded fonts and screenshots, page numbers, and clickable links when configured.
+`build:portfolio` runs the Next.js static build first, then serves `out/` temporarily on loopback, launches Chromium, waits for fonts and images, checks page overflow, renders the presentation, and writes metadata, and synchronizes the same PDF to `public/portfolio.pdf` for the development server. It closes the browser and server afterward. `out/` contains the complete deployable website **and `portfolio.pdf`**. The PDF has landscape 1440 × 810 CSS pixel pages, searchable text, embedded fonts and screenshots, page numbers, and clickable links when configured.
 
 - `npm run build`: website static export only
 - `npm run generate:pdf`: regenerate the PDF from the existing static export
 - `npm run verify`: check static routes, local links, images, gallery opening and Escape dismissal, desktop/tablet/mobile overflow, PDF dimensions, page count, and extracted text; saves website screenshots to `artifacts/`
 
-The initial presentation is 18 pages: cover, introduction, two pages per project, five searchable screen-text reference pages, and a thank-you page. Set `pdfLayout: "compact"` for a one-page project. Long descriptions or unusually large galleries should be edited to fit the presentation; export fails on page overflow rather than silently clipping a page.
+The initial presentation is 13 pages: cover, introduction, two pages per project, and a thank-you page. Screen-text transcripts remain available on the website and are excluded from the PDF. Set `pdfLayout: "compact"` for a one-page project. Long descriptions or unusually large galleries should be edited to fit the presentation; export fails on page overflow rather than silently clipping a page.
 
 ## Edit content
 
 - `src/data/profile.ts`: name, background, expertise, and contact destinations. Email, GitHub, LinkedIn, and website are intentionally blank; add your actual details before sending to recruiters.
-- `src/data/reference-content.ts`: original introduction and project paragraphs, plus readable screen-text transcriptions. These are shared by the website and PDF. Demo clinic contacts and accounts are screenshot content, not personal contact information. Garbled OCR fragments are left in the source images rather than introduced as text.
+- `src/data/reference-content.ts`: original introduction and project paragraphs, plus readable screen-text transcriptions. Original paragraphs are shared by the website and PDF; screen-text transcriptions are available on the website only. Demo clinic contacts and accounts are screenshot content, not personal contact information. Garbled OCR fragments are left in the source images rather than introduced as text.
 - `src/data/projects.ts`: project descriptions, categories, stack, role, responsibilities, technical implementation, challenges, solutions, outcomes, links, order, visibility, and PDF options.
 - `src/types/portfolio.ts`: shared `Project` and `Screenshot` types.
 - `public/images/projects/`: source image assets.

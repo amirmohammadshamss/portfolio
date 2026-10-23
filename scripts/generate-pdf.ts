@@ -16,6 +16,7 @@ try {
  const pdf=await PDFDocument.load(await readFile('out/portfolio.pdf'));
  pdf.setTitle(`${profile.name} — Software Engineering Portfolio`);pdf.setAuthor(profile.name);pdf.setSubject(profile.summary);pdf.setKeywords(['portfolio','software development','mobile','full stack']);pdf.setLanguage('en-US');
  const expected=await page.locator('.pdf-page').count(); if(pdf.getPageCount()!==expected) throw Error(`Expected ${expected} pages; got ${pdf.getPageCount()}`);
- await writeFile('out/portfolio.pdf',await pdf.save());
- console.log(`Generated out/portfolio.pdf (${expected} pages)`);
+ const bytes=await pdf.save();
+ await Promise.all([writeFile('out/portfolio.pdf',bytes),writeFile('public/portfolio.pdf',bytes)]);
+ console.log(`Generated out/portfolio.pdf and public/portfolio.pdf (${expected} pages)`);
 } finally {await browser.close();server.close();}

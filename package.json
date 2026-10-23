@@ -9,7 +9,8 @@
     "lint": "eslint .",
     "generate:pdf": "tsx scripts/generate-pdf.ts",
     "build:portfolio": "npm run build && npm run generate:pdf",
-    "verify": "tsx scripts/verify.ts"
+    "verify": "tsx scripts/verify.ts",
+    "predev": "node scripts/prepare-dev.mjs"
   },
   "dependencies": {
     "next": "16.4.2",
