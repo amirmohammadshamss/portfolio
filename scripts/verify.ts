@@ -38,6 +38,6 @@ try {
  const pdfText=normalize(texts.join(' '));
  const home=await page.request.get(url+'/');const homeHtml=normalize(await home.text());
  for(const paragraph of [...referenceIntroduction,...pdfProjects.flatMap(p=>p.referenceParagraphs??[])]){assert.ok(pdfText.includes(normalize(paragraph)),`Missing PDF paragraph: ${paragraph}`);}
- assert.ok(homeHtml.includes('Word Storm'));assert.ok(homeHtml.includes('FinTech product'));
+ assert.ok(!homeHtml.includes('Read the original screen text'));assert.ok(homeHtml.includes('FinTech product'));
  assert.equal(errors.length,0,errors.join('\n'));console.log(`Verified ${visibleProjects.length} case studies, links, images, gallery keyboard controls, three viewport widths, download link, and ${pdf.getPageCount()} searchable PDF pages.`);
 }finally{await browser.close();server.close();}

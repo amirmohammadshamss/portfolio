@@ -29,12 +29,12 @@ npm run verify
 - `npm run generate:pdf`: regenerate the PDF from the existing static export
 - `npm run verify`: check static routes, local links, images, gallery opening and Escape dismissal, desktop/tablet/mobile overflow, PDF dimensions, page count, and extracted text; saves website screenshots to `artifacts/`
 
-The initial presentation is 13 pages: cover, introduction, two pages per project, and a thank-you page. Screen-text transcripts remain available on the website and are excluded from the PDF. Set `pdfLayout: "compact"` for a one-page project. Long descriptions or unusually large galleries should be edited to fit the presentation; export fails on page overflow rather than silently clipping a page.
+The initial presentation is 13 pages: cover, introduction, two pages per project, and a thank-you page. Screen-text transcripts are retained as editable source data and are not displayed on the website or included in the PDF. Set `pdfLayout: "compact"` for a one-page project. Long descriptions or unusually large galleries should be edited to fit the presentation; export fails on page overflow rather than silently clipping a page.
 
 ## Edit content
 
-- `src/data/profile.ts`: name, background, expertise, and contact destinations. Email, GitHub, LinkedIn, and website are intentionally blank; add your actual details before sending to recruiters.
-- `src/data/reference-content.ts`: original introduction and project paragraphs, plus readable screen-text transcriptions. Original paragraphs are shared by the website and PDF; screen-text transcriptions are available on the website only. Demo clinic contacts and accounts are screenshot content, not personal contact information. Garbled OCR fragments are left in the source images rather than introduced as text.
+- `src/data/profile.ts`: name, introduction, and contact destinations. Email, GitHub, LinkedIn, and website are intentionally blank; add your actual details before sending to recruiters.
+- `src/data/reference-content.ts`: original introduction and project paragraphs, plus readable screen-text transcriptions. Original paragraphs are shared by the website and PDF; screen-text transcriptions are retained as source data only. Demo clinic contacts and accounts are screenshot content, not personal contact information. Garbled OCR fragments are left in the source images rather than introduced as text.
 - `src/data/projects.ts`: project descriptions, categories, stack, role, responsibilities, technical implementation, challenges, solutions, outcomes, links, order, visibility, and PDF options.
 - `src/types/portfolio.ts`: shared `Project` and `Screenshot` types.
 - `public/images/projects/`: source image assets.
@@ -42,7 +42,7 @@ The initial presentation is 13 pages: cover, introduction, two pages per project
 
 To add a project, add an object to the exported `projects` array with its own `coverImage` and `screenshots`. You can append an object after the initial seed mapping or replace that mapping with a plain array. New projects need no page or component changes. Screenshots accept `device: "mobile"`, `"browser"`, or `"none"`, original width/height, alt text, and caption. Keep source aspect ratios. Browser and mobile frames are reusable, and the gallery opens full resolution images in a keyboard accessible native dialog.
 
-`status: "hidden"` excludes a project from routes and exports; `"archived"` keeps a case study accessible in More work; `featured` controls the homepage cards; `includeInPdf` controls PDF inclusion; `order` controls display order. An archived project can remain in the PDF if explicitly included.
+`status: "hidden"` excludes a project from routes and exports; `"archived"` keeps a case study accessible in More work; `featured` controls the homepage presentation; `includeInPdf` controls PDF inclusion; `order` controls display order. An archived project can remain in the PDF if explicitly included.
 
 Rebuild after editing content. The website and presentation read the same objects. Add only verified outcomes and responsibilities; unsupported fields currently appear as editable documentation notes on the website and are omitted from the presentation.
 
@@ -52,9 +52,9 @@ The supplied 13-page original PDF is flattened: every page is one raster image w
 
 ## Design and implementation
 
-The website follows the original PDF’s presentation sequence: a cyan Mobility Projects cover, a white introduction, paired project descriptions and blue three-screen galleries, and a white thank-you page. `src/components/presentation.tsx` shares these sections with the print route; the web layout adapts to small screens while print CSS locks the landscape dimensions.
+The website follows the original PDF’s presentation sequence: a cyan Mobility Projects cover, a white introduction, paired project descriptions and blue three-screen galleries, and a white thank-you page. `src/components/presentation.tsx` shares these sections with the print route; the web layout adapts to small screens while print utilities lock the landscape dimensions.
 
-Server components render the home, case studies, and print presentation. Only the native dialog gallery needs client state. Local Inter variable fonts avoid build-time font requests. Tailwind CSS is available alongside shared CSS and isolated presentation styles in `src/styles/print.css`. Project detail routes use `generateStaticParams` with dynamic parameters disabled. Images are unoptimized for static hosting.
+Server components render the home, case studies, and print presentation. Only the native dialog gallery needs client state. Local Inter variable fonts avoid build-time font requests. All styling uses Tailwind CSS utilities; `src/components/styles.ts` holds shared utility lists. Project detail routes use `generateStaticParams` with dynamic parameters disabled. Images are unoptimized for static hosting.
 
 ## Static deployment
 

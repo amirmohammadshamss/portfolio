@@ -1,0 +1,11 @@
+---
+description: Use Tailwind CSS for all project styling
+alwaysApply: true
+---
+
+# Styling
+
+- Use Tailwind CSS utilities for all styling in this project.
+- Do not introduce custom CSS rules, CSS modules, CSS-in-JS, inline style objects, or other styling frameworks.
+- Keep CSS entry points limited to Tailwind imports and configuration needed by Tailwind.
+- When changing existing styling, express it with Tailwind utilities.

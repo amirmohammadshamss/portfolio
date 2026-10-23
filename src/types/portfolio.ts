@@ -5,7 +5,6 @@ export interface Screenshot {
   device: "mobile" | "browser" | "none";
   width: number;
   height: number;
-  placeholder?: boolean;
 }
 export interface Project {
   id: string;
@@ -15,7 +14,6 @@ export interface Project {
   summary: string;
   description: string;
   referenceParagraphs?: string[];
-  screenshotText?: string[];
   category: string;
   technologies: string[];
   context?: string;
@@ -35,5 +33,4 @@ export interface Project {
   includeInPdf: boolean;
   pdfLayout: "compact" | "extended";
   order: number;
-  accent: string;
 }
