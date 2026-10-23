@@ -14,6 +14,11 @@
       "src": "/images/projects/hello7-3.png",
       "width": 558,
       "height": 1165
+    },
+    {
+      "src": "/images/projects/hello7-overview.png",
+      "width": 695,
+      "height": 1196
     }
   ],
   "dido": [
@@ -31,6 +36,11 @@
       "src": "/images/projects/dido-3.png",
       "width": 575,
       "height": 1179
+    },
+    {
+      "src": "/images/projects/dido-overview.png",
+      "width": 695,
+      "height": 1196
     }
   ],
   "zaryad": [
@@ -48,6 +58,11 @@
       "src": "/images/projects/zaryad-3.png",
       "width": 564,
       "height": 1165
+    },
+    {
+      "src": "/images/projects/zaryad-overview.png",
+      "width": 695,
+      "height": 1196
     }
   ],
   "turlister": [
@@ -65,6 +80,11 @@
       "src": "/images/projects/turlister-3.png",
       "width": 564,
       "height": 1165
+    },
+    {
+      "src": "/images/projects/turlister-overview.png",
+      "width": 695,
+      "height": 1196
     }
   ],
   "care4us": [
@@ -82,6 +102,11 @@
       "src": "/images/projects/care4us-3.png",
       "width": 564,
       "height": 1165
+    },
+    {
+      "src": "/images/projects/care4us-overview.png",
+      "width": 695,
+      "height": 1196
     }
   ]
 }

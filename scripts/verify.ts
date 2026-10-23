@@ -4,6 +4,7 @@ import { chromium } from 'playwright';
 import { PDFDocument } from 'pdf-lib';
 import { getDocument } from 'pdfjs-dist/legacy/build/pdf.mjs';
 import { serveStatic } from './static-server';
+import { referenceIntroduction } from '../src/data/reference-content';
 import { visibleProjects, pdfProjects } from '../src/data/projects';
 const {server,url,origin}=await serveStatic();const browser=await chromium.launch();
 try {
@@ -26,10 +27,16 @@ try {
   assert.ok(dimensions.scroll<=dimensions.viewport+1,`Horizontal overflow at ${width}: ${JSON.stringify(dimensions)}`);
  }
  const download=await page.locator('a[download]').first().getAttribute('href');assert.ok(download?.endsWith('/portfolio.pdf'));
- const bytes=await readFile('out/portfolio.pdf');const pdf=await PDFDocument.load(bytes);assert.equal(pdf.getPageCount(),3+pdfProjects.reduce((n,p)=>n+(p.pdfLayout==='extended'?2:1),0));
+ const bytes=await readFile('out/portfolio.pdf');const pdf=await PDFDocument.load(bytes);assert.equal(pdf.getPageCount(),3+pdfProjects.reduce((n,p)=>n+(p.pdfLayout==='extended'?2:1)+(p.screenshotText?.length?1:0),0));
  for(const p of pdf.getPages()){assert.ok(Math.abs(p.getWidth()-1080)<1);assert.ok(Math.abs(p.getHeight()-607.5)<1);}
  const textPdf=await getDocument({data:new Uint8Array(bytes),useSystemFonts:true}).promise;
  const texts:string[]=[];for(let i=1;i<=textPdf.numPages;i++){const p=await textPdf.getPage(i);const content=await p.getTextContent();const text=content.items.map(item=>'str' in item ? item.str:'').join(' ');assert.ok(text.length>50,`Blank PDF page ${i}`);texts.push(text);}
  assert.ok(texts.join(' ').includes('Amir Mohammad Shams'));for(const project of pdfProjects)assert.ok(texts.join(' ').includes(project.title));
+ const normalize=(value:string)=>value.normalize('NFKC').replace(/\s+/g,' ').trim();
+ const pdfText=normalize(texts.join(' '));
+ const home=await page.request.get(url+'/');const homeHtml=normalize(await home.text());
+ for(const paragraph of [...referenceIntroduction,...pdfProjects.flatMap(p=>p.referenceParagraphs??[])]){assert.ok(pdfText.includes(normalize(paragraph)),`Missing PDF paragraph: ${paragraph}`);}
+ for(const project of pdfProjects){for(const text of project.screenshotText??[]){assert.ok(pdfText.includes(normalize(text)),`Missing PDF UI text: ${text}`);}}
+ assert.ok(homeHtml.includes('Word Storm'));assert.ok(homeHtml.includes('FinTech product'));
  assert.equal(errors.length,0,errors.join('\n'));console.log(`Verified ${visibleProjects.length} case studies, links, images, gallery keyboard controls, three viewport widths, download link, and ${pdf.getPageCount()} searchable PDF pages.`);
 }finally{await browser.close();server.close();}

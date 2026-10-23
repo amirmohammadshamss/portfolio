@@ -29,11 +29,12 @@ npm run verify
 - `npm run generate:pdf`: regenerate the PDF from the existing static export
 - `npm run verify`: check static routes, local links, images, gallery opening and Escape dismissal, desktop/tablet/mobile overflow, PDF dimensions, page count, and extracted text; saves website screenshots to `artifacts/`
 
-The initial presentation is 13 pages: cover, introduction, two pages per project, and a thank-you page. Set `pdfLayout: "compact"` for a one-page project. Long descriptions or unusually large galleries should be edited to fit the presentation; export fails on page overflow rather than silently clipping a page.
+The initial presentation is 18 pages: cover, introduction, two pages per project, five searchable screen-text reference pages, and a thank-you page. Set `pdfLayout: "compact"` for a one-page project. Long descriptions or unusually large galleries should be edited to fit the presentation; export fails on page overflow rather than silently clipping a page.
 
 ## Edit content
 
 - `src/data/profile.ts`: name, background, expertise, and contact destinations. Email, GitHub, LinkedIn, and website are intentionally blank; add your actual details before sending to recruiters.
+- `src/data/reference-content.ts`: original introduction and project paragraphs, plus readable screen-text transcriptions. These are shared by the website and PDF. Demo clinic contacts and accounts are screenshot content, not personal contact information. Garbled OCR fragments are left in the source images rather than introduced as text.
 - `src/data/projects.ts`: project descriptions, categories, stack, role, responsibilities, technical implementation, challenges, solutions, outcomes, links, order, visibility, and PDF options.
 - `src/types/portfolio.ts`: shared `Project` and `Screenshot` types.
 - `public/images/projects/`: source image assets.
@@ -47,7 +48,7 @@ Rebuild after editing content. The website and presentation read the same object
 
 ## Reference assets
 
-The supplied 13-page original PDF is flattened: every page is one raster image with no selectable text or independently extractable product screenshots. Fifteen usable screen regions were extracted at high resolution from the product gallery pages and saved as PNGs. The site does not use full original pages as backgrounds. Reference copy was reviewed visually. turLister's documented stack includes Ionic, Angular, TypeScript, REST APIs, and MVC. Other stacks, personal roles, metrics, and project links have not been invented. The original PDF and external source folders are not required to build this repository.
+The supplied 13-page original PDF is flattened: every page is one raster image with no selectable text or independently extractable product screenshots. Twenty screen regions were extracted at high resolution: fifteen gallery screens plus the five original description-page screens. Description-page phone images retain the original source page edge; any clipping already present in the source is preserved. The site does not use full original pages as backgrounds. Reference copy was reviewed visually. turLister's documented stack includes Ionic, Angular, TypeScript, REST APIs, and MVC. Other stacks, personal roles, metrics, and project links have not been invented. The original PDF and external source folders are not required to build this repository.
 
 ## Design and implementation
 

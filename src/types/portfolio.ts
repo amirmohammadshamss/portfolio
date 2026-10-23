@@ -14,6 +14,8 @@ export interface Project {
   subtitle: string;
   summary: string;
   description: string;
+  referenceParagraphs?: string[];
+  screenshotText?: string[];
   category: string;
   technologies: string[];
   context?: string;

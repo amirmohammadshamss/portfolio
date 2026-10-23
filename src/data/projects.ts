@@ -1,4 +1,5 @@
 import type { Project, Screenshot } from "@/types/portfolio";
+import { referenceProjects } from "./reference-content";
 import screenshotAssets from "./screenshots.json";
 const captions: Record<string, string[]> = {
  hello7: ["Vocabulary review · Word Storm", "Word meaning practice", "Learning progress and profile"],
@@ -7,7 +8,7 @@ const captions: Record<string, string[]> = {
  turlister: ["Account sign in", "Outdoor activity map", "Activity categories"],
  care4us: ["Patient account sign in", "Clinic discovery", "Payment and billing history"],
 };
-const images = (slug: string, title: string): Screenshot[] => screenshotAssets[slug as keyof typeof screenshotAssets].map((image, i) => ({...image, alt: `${title}: ${captions[slug][i]}`, caption: captions[slug][i], device: "mobile"}));
+const images = (slug: string, title: string): Screenshot[] => screenshotAssets[slug as keyof typeof screenshotAssets].map((image, i) => ({...image, alt: `${title}: ${i === 3 ? "Original project overview screen" : captions[slug][i]}`, caption: i === 3 ? "Original overview screen · source page edge preserved" : captions[slug][i], device: i === 3 ? "none" : "mobile"}));
 const seeds = [
   { slug: "hello7", title: "Hello7", subtitle: "A more visual way to learn.", category: "Language learning", summary: "English vocabulary learning through visual content and GIFs, making memorization more engaging.", description: "Hello7 is an English vocabulary learning application. Visual content and GIFs support a more engaging approach to learning and remembering new words.", context: "Making English vocabulary learning and memorization more engaging.", solutions: ["Use visual content and GIFs as part of the vocabulary learning experience."], accent: "#2878ed" },
   { slug: "dido", title: "Dido", subtitle: "Discover a different dining experience.", category: "Restaurant discovery", summary: "A restaurant discovery and advertising platform exploring AR and VR experiences.", description: "Dido brings restaurant discovery and advertising together in a single platform. The project explores augmented reality and virtual reality concepts for restaurant experiences.", context: "Restaurant discovery and advertising, with exploration of immersive experiences.", solutions: ["Bring restaurant discovery and advertising into a shared platform.", "Explore augmented reality and virtual reality concepts for restaurant experiences."], accent: "#d07744" },
@@ -17,7 +18,8 @@ const seeds = [
 ];
 export const projects: Project[] = seeds.map((seed, index) => ({
   id: seed.slug, ...seed, logoImage: `/images/projects/${seed.slug}-logo.png`, technologies: seed.technologies ?? [],
-  coverImage: images(seed.slug, seed.title)[seed.slug === "hello7" || seed.slug === "care4us" ? 2 : 1], screenshots: images(seed.slug, seed.title),
+  referenceParagraphs: referenceProjects[seed.slug].paragraphs, screenshotText: referenceProjects[seed.slug].screenText,
+  coverImage: images(seed.slug, seed.title)[3], screenshots: images(seed.slug, seed.title).slice(0,3),
   editorialNotes: ["Add your verified role and responsibilities.", "Document architecture, implementation decisions, and engineering challenges.", "Add verified outcomes and external project links. Screenshots are extracted from the original portfolio."],
   featured: true, status: "published", includeInPdf: true, pdfLayout: "extended", order: index + 1,
 }));
